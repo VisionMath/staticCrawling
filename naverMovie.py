@@ -35,11 +35,15 @@ for li in li_list:
         di_str.append(i.text)
     director = ', '.join(di_str)
 
-
-    ac = info[2].findAll('a')
-    ac_str = []
-    for i in ac:
-        ac_str.append(i.text)
-    actor = ', '.join(ac_str)
+    step3=soup.select_one('dt.step3')
+    if step3:
+        ac = info[2].findAll('a')
+        ac_str = []
+        for i in ac:
+            ac_str.append(i.text)
+        ac_str.remove('더보기')
+        actor = ', '.join(ac_str)
+    else:
+        actor = None
     print(title, actor)
 
