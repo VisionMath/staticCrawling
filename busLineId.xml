@@ -1,0 +1,30 @@
+<response>
+    <header>
+        <resultCode>00</resultCode>
+        <resultMsg>NORMAL SERVICE</resultMsg>
+    </header>
+    <body>
+        <items>
+            <item>
+                <bstopid>184980101</bstopid>
+                <lineno>52</lineno>
+                <nodenm>반여3동</nodenm>
+                <bstopidx>98</bstopidx>
+                <carno1>4567</carno1>
+                <min1>4</min1>
+                <station1>3</station1>
+                <lowplate1>0</lowplate1>
+                <seat1>-1</seat1>
+                <carno2>4530</carno2>
+                <min2>19</min2>
+                <station2>14</station2>
+                <lowplate2>0</lowplate2>
+                <seat2>-1</seat2>
+                <gpsx>129.13149</gpsx>
+                <gpsy>35.19966667</gpsy>
+                <bustype>일반버스</bustype>
+                <lineid>5200052000</lineid>
+            </item>
+        </items>
+    </body>
+</response>

@@ -1,0 +1,68 @@
+<response>
+    <header>
+        <resultCode>00</resultCode>
+        <resultMsg>NORMAL SERVICE</resultMsg>
+    </header>
+    <body>
+        <items>
+            <item>
+                <bstopid>184980101</bstopid>
+                <bstopnm>반여3동</bstopnm>
+                <arsno>09182</arsno>
+                <gpsx>129.13149</gpsx>
+                <gpsy>35.19966667</gpsy>
+                <stoptype>일반</stoptype>
+            </item>
+            <item>
+                <bstopid>184820101</bstopid>
+                <bstopnm>반여3동</bstopnm>
+                <arsno>09183</arsno>
+                <gpsx>129.1314233</gpsx>
+                <gpsy>35.19988333</gpsy>
+                <stoptype>일반</stoptype>
+            </item>
+        </items>
+        <numOfRows>10</numOfRows>
+        <pageNo>1</pageNo>
+        <totalCount>2</totalCount>
+    </body>
+</response>
+
+<response>
+<header>
+    <resultCode>00</resultCode>
+    <resultMsg>NORMAL SERVICE</resultMsg>
+</header>
+<body>
+    <items>
+        <item>
+            <lineid>5200052000</lineid>
+            <buslinenum>52</buslinenum>
+            <bustype>일반버스</bustype>
+            <startpoint>반여3동</startpoint>
+            <endpoint>수정4동</endpoint>
+            <companyid>일신</companyid>
+            <headway>9</headway>
+            <firsttime>05:00</firsttime>
+            <endtime>22:20</endtime>
+            <headwaypeak>6</headwaypeak>
+            <headwaynorm>7</headwaynorm>
+            <headwayholi>7</headwayholi>
+        </item>
+        <item>
+            <lineid>5200520000</lineid>
+            <buslinenum>520</buslinenum>
+            <bustype>일반버스</bustype>
+            <startpoint>용원</startpoint>
+            <endpoint>한성기린아파트</endpoint>
+            <companyid>태영</companyid>
+            <headway>24</headway>
+            <firsttime>05:00</firsttime>
+            <endtime>21:00</endtime>
+            <headwaypeak>50</headwaypeak>
+            <headwaynorm>56</headwaynorm>
+            <headwayholi>56</headwayholi>
+        </item>
+    </items>
+</body>
+</response>

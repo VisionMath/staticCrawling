@@ -1,0 +1,22 @@
+<response>
+    <header>
+        <resultCode>0000</resultCode>
+        <resultMsg>OK</resultMsg>
+    </header>
+    <body>
+        <items>
+            <item>
+                <ed>방한외래관광객</ed>
+                <edCd>E</edCd>
+                <natCd>112</natCd>
+                <natKorNm>중 국</natKorNm>
+                <num>167022</num>
+                <rnum>1</rnum>
+                <ym>201201</ym>
+            </item>
+        </items>
+        <numOfRows>10</numOfRows>
+        <pageNo>1</pageNo>
+        <totalCount>1</totalCount>
+    </body>
+</response>

@@ -1,9 +1,8 @@
-import requests
-from bs4 import BeautifulSoup as bs
-import requests as req
-import regex as re
-import numpy as np
 import pandas as pd
+import regex as re
+import requests as req
+from bs4 import BeautifulSoup as bs
+import pymysql
 
 base = 'https://movie.naver.com'
 res = req.get('https://movie.naver.com/movie/running/current.naver')
@@ -26,7 +25,8 @@ for li in li_list:
     gen = soup.select_one("a[href*=genre]")
     genre = gen.text if gen else ''
 
-    runtime = li.find(text=re.compile('\d[분]'))
+    rt = li.find(text=re.compile('\d[분]')).strip()
+    runtime = re.sub(r"^\s+", "", rt)
     op = soup.select("a[href*=open]")
     open_date = op[0].text + op[1].text
 
@@ -71,5 +71,30 @@ for li in li_list:
 
     temp_list.append((title, grade, score, genre, runtime, open_date, director, actor, story, percent, image_link))
 
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+
 df=pd.DataFrame(temp_list, columns=['title', 'grade', 'score', 'genre', 'runtime', 'open_date', 'director', 'actor', 'story', 'percent', 'image_link'])
+df.to_csv('data/naverMovie.csv')
 print(df)
+
+def insert_movie(movie_list):
+    conn=pymysql.connect(host='localhost', user='root', password='vm28283', db='pydb', charset='utf8')
+    cursor=conn.cursor()
+    sql='''insert into naverMovie(title, grade, score, genre, runtime, open_date, director, actor, story, percent, image_link) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
+    cursor.executemany(sql, movie_list)
+    conn.commit()
+    conn.close()
+
+def select_all():
+    conn=pymysql.connect(host='localhost', user='root', password='vm28283', db='pydb', charset='utf8')
+    cursor=conn.cursor()
+    sql='select * from naverMovie'
+    cursor.execute(sql)
+    for movie in cursor:
+        print(movie)
+    conn.commit()
+    conn.close()
+
+insert_movie(temp_list)
+select_all()
