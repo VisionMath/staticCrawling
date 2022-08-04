@@ -6,15 +6,17 @@ from webdriver_manager.chrome import ChromeDriverManager
 import pandas as pd
 import pymysql
 import time
+import urllib.request
 
 
 def set_chrome_driver():
     r_driver = webdriver.Chrome(ChromeDriverManager().install())
     return r_driver
 
+
 def getTagText(tag, by, element_path):
     try:
-        elemnet=tag.find_element(by, element_path)
+        elemnet = tag.find_element(by, element_path)
         return elemnet.text
     except NoSuchElementException:
         return ''
@@ -31,28 +33,27 @@ driver.implicitly_wait(2)
 stopFlag = False
 book_list = []
 
-li_list = driver.find_elements(By.CSS_SELECTOR, '#yesSchList > li')
-
-# for i in range(8):
-#     driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
-#     time.sleep(1)
-#
-# for li in li_list:
-#     title = li.find_element(By.CSS_SELECTOR, 'a.gd_name').text
-#     author = li.find_element(By.CSS_SELECTOR, 'span.authPub.info_auth > a').text
-#     pub = li.find_element(By.CSS_SELECTOR, 'span.authPub.info_pub > a').text
-#     pub_date = li.find_element(By.CSS_SELECTOR, 'span.authPub.info_date').text
-#     price = li.find_element(By.CSS_SELECTOR, 'div.info_row.info_price > strong > em').text
-#
-#
-#
-#     image = li.find_element(By.CSS_SELECTOR, '#yesSchList > li > div > div.item_img > div.img_canvas > span > span > a > em > img').get_attribute('src')
-#
-#     image_name=image.split('/')[-2]
-#     print(image_name)
-
 while True:
     for n in range(2, 12):
+
+        li_list = driver.find_elements(By.CSS_SELECTOR, '#yesSchList > li')
+
+        for i in range(9):
+            driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.PAGE_DOWN)
+            time.sleep(0.5)
+
+        for li in li_list:
+            title = getTagText(li, By.CSS_SELECTOR, 'a.gd_name')
+            author = getTagText(li, By.CSS_SELECTOR, 'span.authPub.info_auth > a')
+            pub = getTagText(li, By.CSS_SELECTOR, 'span.authPub.info_pub > a')
+            pub_date = getTagText(li, By.CSS_SELECTOR, 'span.authPub.info_date')
+            price = getTagText(li, By.CSS_SELECTOR, 'div.info_row.info_price > strong > em')
+
+            image = li.find_element(By.CSS_SELECTOR,
+                                    '#yesSchList > li > div > div.item_img > div.img_canvas > span > span > a > em > img').get_attribute(
+                'src')
+            image_name = image.split('/')[-2]
+            urllib.request.urlretrieve(image, 'book_images/' + image_name + '.jpg')
 
         book_count = driver.find_elements(By.CLASS_NAME, 'itemUnit')
 
@@ -60,34 +61,13 @@ while True:
             stopFlag = True
             break
         else:
-            for i in range(7):
-                driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
-                time.sleep(1)
-
-            for li in li_list:
-
-                # title = li.find_element(By.CSS_SELECTOR, 'a.gd_name').text
-                title = getTagText(li, By.CSS_SELECTOR, 'a.gd_name')
-                # author = li.find_element(By.CSS_SELECTOR, 'span.authPub.info_auth > a').text
-                author = getTagText(li, By.CSS_SELECTOR, 'span.authPub.info_auth > a')
-                # pub = li.find_element(By.CSS_SELECTOR, 'span.authPub.info_pub > a').text
-                pub = getTagText(li, By.CSS_SELECTOR, 'span.authPub.info_pub > a')
-                # pub_date = li.find_element(By.CSS_SELECTOR, 'span.authPub.info_date').text
-                pub_date = getTagText(li, By.CSS_SELECTOR, 'span.authPub.info_date')
-                # price = li.find_element(By.CSS_SELECTOR, 'div.info_row.info_price > strong > em').text
-                price = getTagText(li, By.CSS_SELECTOR, 'div.info_row.info_price > strong > em')
-
-                image = li.find_element(By.CSS_SELECTOR, '#yesSchList > li > div > div.item_img > div.img_canvas > span > span > a > em > img').get_attribute('src')
-
-                image_name=image.split('/')[-2]
-                print(image_name)
-
             try:
                 first = driver.find_element(By.CSS_SELECTOR, '#goodsListWrap > div.sGoodsPagen > div > a.bgYUI.first')
                 num = n + 2
             except NoSuchElementException:
                 num = n
-            page = driver.find_element(By.CSS_SELECTOR, '#goodsListWrap > div.sGoodsPagen > div > a:nth-child(' + str(num) + ')')
+            page = driver.find_element(By.CSS_SELECTOR,
+                                       '#goodsListWrap > div.sGoodsPagen > div > a:nth-child(' + str(num) + ')')
             page.click()
             time.sleep(2)
 
